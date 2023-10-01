@@ -55,7 +55,7 @@ if selected_page == "Dataframe":
     **poutcome (Resultado da Campanha Anterior):** Variável categórica que descreve o resultado da campanha de marketing anterior, com categorias como 'fracasso', 'inexistente' e 'sucesso'.
 
 
-    ## Variáveis Contexto Socioeconômico
+    ## Variáveis Contexto Socioeconômicas
 
     **emp.var.rate (Taxa de Variação de Emprego):** Variável numérica que representa a taxa de variação do emprego.
 
