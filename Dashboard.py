@@ -78,7 +78,7 @@ if selected_page == "Dataframe":
 elif selected_page == 'Identificando valores NaN':
     search_values = [np.nan, 'unknown', 'nonexistent']
     for value in search_values:
-        st.subheader(f'Histogram for "{value}"')
+        st.subheader(f'Histograma para "{value}"')
         
         # Initialize a count for each column
         counts = []
@@ -91,7 +91,7 @@ elif selected_page == 'Identificando valores NaN':
         
         # Create a bar plot for the counts
         plt.figure(figsize=(8, 4))
-        plt.title(f'Histogram for "{value}"')
+        plt.title(f'Histograma para "{value}"')
         sns.barplot(x=counts, y=df.columns)
         plt.xlabel('Count')
         plt.ylabel('Columns')
