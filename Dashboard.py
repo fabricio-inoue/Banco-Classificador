@@ -13,7 +13,7 @@ st.set_page_config(page_title='Dashboard_Bank', layout='centered')
 
 df = pd.read_csv('bank-additional-full.csv', sep=';')
 
-selected_page = st.sidebar.selectbox("Selecione a página", ["Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
+selected_page = st.sidebar.selectbox("Selecione a página", ["Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado","Teste"])
 
 if selected_page == "Dataframe":
     st.write('## Dataframe sobre a campanha')
@@ -140,6 +140,8 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_yticklabels(X.columns[sorted_idx])
     ax.set_xlabel('Feature Importance')
     ax.set_title('Random Forest Feature Importance')
+
+elif selected_page == "Teste":
 
     # Show the plot using st.pyplot
     st.pyplot(fig)
