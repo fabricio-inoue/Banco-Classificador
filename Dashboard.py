@@ -13,7 +13,7 @@ st.set_page_config(page_title='Dashboard_Bank', layout='centered')
 
 df = pd.read_csv('bank-additional-full.csv', sep=';')
 
-selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado","Teste"])
+selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
 if selected_page == "Descrição do Projeto":
     text_content = """
     ## Descrição do Projeto
@@ -107,6 +107,13 @@ elif selected_page == 'Identificando valores NaN':
         
         # Display the plot in Streamlit
         st.pyplot(plt)
+        text_content = """
+        Com os histogramas, conseguimos ver que apesar de não termos nenhum valor "NaN", temos outros termos que também representam a 
+        ausência de um valor, mostrando que as nomenclaturas não estão padronizadas, dificultando o manuseio dos dados
+    """
+
+    # Display the text content using Streamlit
+    st.markdown(text_content)
 
 elif selected_page == "Gráficos":
     chart_container = st.container()
@@ -151,18 +158,3 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_title('Random Forest Feature Importance')
     # Show the plot using st.pyplot
     st.pyplot(fig)
-
-elif selected_page == "Teste":
- """
-    ## Sobre o modelo
-
-    **Objetivos:**
- 
-    **Metas:** 
-
-    **Previsões:** 
-
-    **Interação:** 
-
-    **Sobre:** 
- """
