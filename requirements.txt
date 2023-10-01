@@ -1,0 +1,3 @@
+plotly
+seaborn
+sci-kit learn
