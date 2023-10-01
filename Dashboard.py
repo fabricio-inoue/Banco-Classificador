@@ -140,7 +140,8 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_yticklabels(X.columns[sorted_idx])
     ax.set_xlabel('Feature Importance')
     ax.set_title('Random Forest Feature Importance')
-
+    # Show the plot using st.pyplot
+    st.pyplot(fig)
 elif selected_page == "Teste":
  """
     ## Sobre o modelo
