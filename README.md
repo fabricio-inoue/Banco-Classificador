@@ -1,3 +1,3 @@
 # Banco-Classificador
 
-endereço: https://github.com/fabricio-inoue/Banco-Classificador
+endereço: https://banco-classificador-7iqdmx3lm3ygfpmeg7j9jh.streamlit.app/)https://banco-classificador-7iqdmx3lm3ygfpmeg7j9jh.streamlit.app/
