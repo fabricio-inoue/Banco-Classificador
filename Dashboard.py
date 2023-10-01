@@ -142,8 +142,7 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_title('Random Forest Feature Importance')
 
 elif selected_page == "Teste":
-
     col1, col2 = st.columns(2)
-    col1.write(st.image('"D:\_Daniel\Downloads\saiba-como-fazer-uma-estrategia-de-negocio-de-acordo-com-o-perfil-da-empresa-810x540.jpeg"'))
-    col2.write(st.image('negocio-para-abrir-em-2023.png'))
+    col1.image('"D:\_Daniel\Downloads\saiba-como-fazer-uma-estrategia-de-negocio-de-acordo-com-o-perfil-da-empresa-810x540.jpeg"'))
+    col2.image('negocio-para-abrir-em-2023.png'))
 
