@@ -145,13 +145,13 @@ elif selected_page == "Teste":
  """
     ## Sobre o modelo
 
-    **contact (Canal de Contato):** Variável categórica que indica o canal de contato utilizado, com categorias 'cellular' e 'telephone'.
+    **Objetivos:**
+ 
+    **Metas:** 
 
-    **month (Mês de Contato):** Variável categórica que descreve o mês em que o cliente foi contatado, com valores como 'jan', 'feb', 'mar', etc.
+    **Previsões:** 
 
-    **day_of_week (Dia da Semana):** Variável categórica que indica o dia da semana em que o cliente foi contatado, com valores como 'mon', 'tue', 'wed', etc.
+    **Interação:** 
 
-    **duration(s) (Duração em Segundos):** Variável numérica que representa a duração do contato em segundos.
-
-    **campaign (Número de Contatos):** Variável numérica que indica o número de contatos realizados durante esta campanha para este cliente.
+    **Sobre:** 
  """
