@@ -1,3 +1,3 @@
 plotly
 seaborn
-sci-kit learn
+scikit-learn
