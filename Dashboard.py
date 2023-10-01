@@ -154,4 +154,4 @@ elif selected_page == "Teste":
     **duration(s) (Duração em Segundos):** Variável numérica que representa a duração do contato em segundos.
 
     **campaign (Número de Contatos):** Variável numérica que indica o número de contatos realizados durante esta campanha para este cliente.
-
+ """
