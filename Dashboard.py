@@ -97,7 +97,7 @@ elif selected_page == 'Identificando valores NaN':
         plt.ylabel('Columns')
         
         # Display the plot in Streamlit
-        st.pyplot()
+        st.pyplot(plt)
 
 elif selected_page == "Gráficos":
     chart_container = st.container()
