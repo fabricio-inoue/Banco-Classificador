@@ -102,19 +102,24 @@ elif selected_page == 'Identificando valores NaN':
 elif selected_page == "Gráficos":
     chart_container = st.container()
 
-    # Histogram with custom figure size
     with chart_container:
-        st.write('## Gráfico de barras demonstra x')
+        st.write('### Gráfico de barras demonstra uma distribuição desequilibrada dos dados, concentrados na faixa dos 30 aos 40 anos.')
         col1, col2 = st.columns(2)
         fig_hist = px.histogram(df, x='age', title='Histograma de Idade')
         col1.plotly_chart(fig_hist)
 
-    # Pie chart with custom figure size
     with chart_container:
-        st.write('## Gráfico de pizza demonstra y')
+        st.write('## Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são casados, com uma parte considerável de solteiros e divorciados.')
         col3, col4 = st.columns(2)
         df['marital_counts'] = df['marital'].value_counts()
         fig_marital = px.pie(df, names='marital', title='Distribuição Marital')
+        col3.plotly_chart(fig_marital)
+
+    with chart_container:
+        st.write('## Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são casados, com uma parte considerável de solteiros e divorciados.')
+        col3, col4 = st.columns(2)
+        df['education_counts'] = df['education'].value_counts()
+        fig_marital = px.pie(df, names='education', title='Distribuição da educação')
         col3.plotly_chart(fig_marital)
 
 elif selected_page == "Modelo de Random Fortest Treinado":
