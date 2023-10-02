@@ -139,7 +139,7 @@ elif selected_page == "Gráficos":
         fig_marital = px.pie(df, names='education', title='Distribuição da educação')
         col3.plotly_chart(fig_marital)
 
-elif selected_page == "Modelo de Random Fortest Treinado":
+elif selected_page == "Modelo de Random Forest Treinado":
     # Split the data and train the model
     X = df.drop(columns=['y'])
     y = df['y']
@@ -165,7 +165,8 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     # Show the plot using st.pyplot
     st.pyplot(fig)
 
-    X = df.drop(columns=['y'])
+elif selected_page == 'Modelo de Random Forest sem Duration':
+    X = df.drop(columns=['y', 'duration'])
     y = df['y']
     X = pd.get_dummies(X)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
