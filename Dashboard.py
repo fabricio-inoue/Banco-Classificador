@@ -164,3 +164,27 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_title('Random Forest Feature Importance')
     # Show the plot using st.pyplot
     st.pyplot(fig)
+
+    X = df.drop(columns=['y'])
+    y = df['y']
+    X = pd.get_dummies(X)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+    rf_model.fit(X_train, y_train)
+
+    # Calculate accuracy
+    accuracy = rf_model.score(X_test, y_test)
+    st.write(f'Accuracy on the test set: {accuracy:.2f}')
+
+    # Plot feature importance
+    feature_importance = rf_model.feature_importances_
+    sorted_idx = feature_importance.argsort()
+
+    fig, ax = plt.subplots(figsize=(15, 9))
+    ax.barh(range(X.shape[1]), feature_importance[sorted_idx])
+    ax.set_yticks(range(X.shape[1]))
+    ax.set_yticklabels(X.columns[sorted_idx])
+    ax.set_xlabel('Feature Importance')
+    ax.set_title('Random Forest Feature Importance')
+    # Show the plot using st.pyplot
+    st.pyplot(fig)
