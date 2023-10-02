@@ -13,9 +13,18 @@ st.set_page_config(page_title='Dashboard_Bank', layout='centered')
 
 df = pd.read_csv('bank-additional-full.csv', sep=';')
 
-selected_page = st.sidebar.selectbox("Selecione a página", ["Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
+selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
+if selected_page == "Descrição do Projeto":
+    text_content = """
+    ## Descrição do Projeto
+    Estamos lidando com dados de marketing uma instituição de banco portuguesa, mais especificamente, ligações efetuadas entre Maio de 2008 e Novembro de 2010. Estes dados serão utilizados para que ligações e ofertas de marketing possam ter alvos melhores, de modo em que diminua o número de chamadas que não fecharão um negócio.
+    Utilizando Machine Learning, faremos uma análise das chamadas efetuadas e quais conseguiram fechar um negócio, para otimizarmos as chamadas e os clientes escolhidos, assim aumentando a chance de sucesso do banco.
+    """
 
-if selected_page == "Dataframe":
+    # Display the text content using Streamlit
+    st.markdown(text_content)
+
+elif selected_page == "Dataframe":
     st.write('## Dataframe sobre a campanha')
     df
     text_content = """
@@ -55,7 +64,7 @@ if selected_page == "Dataframe":
     **poutcome (Resultado da Campanha Anterior):** Variável categórica que descreve o resultado da campanha de marketing anterior, com categorias como 'fracasso', 'inexistente' e 'sucesso'.
 
 
-    ## Variáveis Contexto Socioeconômico
+    ## Variáveis Contexto Socioeconômicas
 
     **emp.var.rate (Taxa de Variação de Emprego):** Variável numérica que representa a taxa de variação do emprego.
 
@@ -98,6 +107,13 @@ elif selected_page == 'Identificando valores NaN':
         
         # Display the plot in Streamlit
         st.pyplot(plt)
+        text_content = """
+        Com os histogramas, conseguimos ver que apesar de não termos nenhum valor "NaN", temos outros termos que também representam a 
+        ausência de um valor, mostrando que as nomenclaturas não estão padronizadas, dificultando o manuseio dos dados
+    """
+
+    # Display the text content using Streamlit
+    st.markdown(text_content)
 
 elif selected_page == "Gráficos":
     chart_container = st.container()
@@ -145,7 +161,5 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_yticklabels(X.columns[sorted_idx])
     ax.set_xlabel('Feature Importance')
     ax.set_title('Random Forest Feature Importance')
-
     # Show the plot using st.pyplot
     st.pyplot(fig)
-
