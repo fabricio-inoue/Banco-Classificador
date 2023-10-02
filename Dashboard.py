@@ -13,7 +13,7 @@ st.set_page_config(page_title='Dashboard_Bank', layout='centered')
 
 df = pd.read_csv('bank-additional-full.csv', sep=';')
 
-selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
+selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Forest Treinado"])
 if selected_page == "Descrição do Projeto":
     text_content = """
     ## Descrição do Projeto
