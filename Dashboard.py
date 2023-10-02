@@ -132,8 +132,9 @@ elif selected_page == "Gráficos":
         col3.plotly_chart(fig_marital)
 
     with chart_container:
-        st.write('## Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são casados, com uma parte considerável de solteiros e divorciados.')
+        st.write('## Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são estudantes universitários e de ensino médio, com um número significativo de estudantes de ensino básico.')
         col3, col4 = st.columns(2)
+        df['education'] = df['education'].replace(['basic.9y', 'basic.6y', 'basic.4y'], 'basic')
         df['education_counts'] = df['education'].value_counts()
         fig_marital = px.pie(df, names='education', title='Distribuição da educação')
         col3.plotly_chart(fig_marital)
