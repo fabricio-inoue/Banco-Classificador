@@ -132,7 +132,7 @@ elif selected_page == "Gráficos":
         col3.plotly_chart(fig_marital)
 
     with chart_container:
-        st.write('## Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são estudantes universitários e de ensino médio, com um número significativo de estudantes de ensino básico.')
+        st.write('## Gráfico de pizza demonstra que os clientes predominantes nesse dataset são estudantes de nível básico, com número significativos de universitários e de ensino médio.')
         col3, col4 = st.columns(2)
         df['education'] = df['education'].replace(['basic.9y', 'basic.6y', 'basic.4y'], 'basic')
         df['education_counts'] = df['education'].value_counts()
