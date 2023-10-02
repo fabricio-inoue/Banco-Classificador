@@ -165,7 +165,7 @@ elif selected_page == "Modelo de Random Forest Treinado":
     # Show the plot using st.pyplot
     st.pyplot(fig)
 
-elif selected_page == 'Modelo de Random Forest sem Duration':
+    # Split the data and train the model
     X = df.drop(columns=['y', 'duration'])
     y = df['y']
     X = pd.get_dummies(X)
@@ -189,3 +189,5 @@ elif selected_page == 'Modelo de Random Forest sem Duration':
     ax.set_title('Random Forest Feature Importance')
     # Show the plot using st.pyplot
     st.pyplot(fig)
+
+
