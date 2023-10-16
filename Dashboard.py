@@ -13,9 +13,18 @@ st.set_page_config(page_title='Dashboard_Bank', layout='centered')
 
 df = pd.read_csv('bank-additional-full.csv', sep=';')
 
-selected_page = st.sidebar.selectbox("Selecione a página", ["Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Fortest Treinado"])
+selected_page = st.sidebar.selectbox("Selecione a página", ["Descrição do Projeto", "Dataframe", "Identificando valores NaN", "Gráficos", "Modelo de Random Forest Treinado"])
+if selected_page == "Descrição do Projeto":
+    text_content = """
+    ## Descrição do Projeto
+    Estamos lidando com dados de marketing uma instituição de banco portuguesa, mais especificamente, ligações efetuadas entre Maio de 2008 e Novembro de 2010. Estes dados serão utilizados para que ligações e ofertas de marketing possam ter alvos melhores, de modo em que diminua o número de chamadas que não fecharão um negócio.
+    Utilizando Machine Learning, faremos uma análise das chamadas efetuadas e quais conseguiram fechar um negócio, para otimizarmos as chamadas e os clientes escolhidos, assim aumentando a chance de sucesso do banco.
+    """
 
-if selected_page == "Dataframe":
+    # Display the text content using Streamlit
+    st.markdown(text_content)
+
+elif selected_page == "Dataframe":
     st.write('## Dataframe sobre a campanha')
     df
     text_content = """
@@ -55,7 +64,7 @@ if selected_page == "Dataframe":
     **poutcome (Resultado da Campanha Anterior):** Variável categórica que descreve o resultado da campanha de marketing anterior, com categorias como 'fracasso', 'inexistente' e 'sucesso'.
 
 
-    ## Variáveis Contexto Socioeconômico
+    ## Variáveis Contexto Socioeconômicas
 
     **emp.var.rate (Taxa de Variação de Emprego):** Variável numérica que representa a taxa de variação do emprego.
 
@@ -98,26 +107,39 @@ elif selected_page == 'Identificando valores NaN':
         
         # Display the plot in Streamlit
         st.pyplot(plt)
+        text_content = """
+        Com os histogramas, conseguimos ver que apesar de não termos nenhum valor "NaN", temos outros termos que também representam a 
+        ausência de um valor, mostrando que as nomenclaturas não estão padronizadas, dificultando o manuseio dos dados
+    """
+
+    # Display the text content using Streamlit
+    st.markdown(text_content)
 
 elif selected_page == "Gráficos":
     chart_container = st.container()
 
-    # Histogram with custom figure size
     with chart_container:
-        st.write('## Gráfico de barras demonstra x')
+        st.write('#### Gráfico de barras demonstra uma distribuição desequilibrada dos dados, concentrados na faixa dos 30 aos 40 anos.')
         col1, col2 = st.columns(2)
         fig_hist = px.histogram(df, x='age', title='Histograma de Idade')
         col1.plotly_chart(fig_hist)
 
-    # Pie chart with custom figure size
     with chart_container:
-        st.write('## Gráfico de pizza demonstra y')
+        st.write('#### Gráfico de pizza demonstra que a maioria dos clientes nesse dataset são casados, com uma parte considerável de solteiros e divorciados.')
         col3, col4 = st.columns(2)
         df['marital_counts'] = df['marital'].value_counts()
         fig_marital = px.pie(df, names='marital', title='Distribuição Marital')
         col3.plotly_chart(fig_marital)
 
-elif selected_page == "Modelo de Random Fortest Treinado":
+    with chart_container:
+        st.write('#### Gráfico de pizza demonstra que os clientes predominantes nesse dataset são estudantes de nível básico, com número significativos de universitários e de ensino médio.')
+        col3, col4 = st.columns(2)
+        df['education'] = df['education'].replace(['basic.9y', 'basic.6y', 'basic.4y'], 'basic')
+        df['education_counts'] = df['education'].value_counts()
+        fig_marital = px.pie(df, names='education', title='Distribuição da educação')
+        col3.plotly_chart(fig_marital)
+
+elif selected_page == "Modelo de Random Forest Treinado":
     # Split the data and train the model
     X = df.drop(columns=['y'])
     y = df['y']
@@ -140,7 +162,32 @@ elif selected_page == "Modelo de Random Fortest Treinado":
     ax.set_yticklabels(X.columns[sorted_idx])
     ax.set_xlabel('Feature Importance')
     ax.set_title('Random Forest Feature Importance')
-
     # Show the plot using st.pyplot
     st.pyplot(fig)
+
+    # Split the data and train the model
+    X = df.drop(columns=['y', 'duration'])
+    y = df['y']
+    X = pd.get_dummies(X)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+    rf_model.fit(X_train, y_train)
+
+    # Calculate accuracy
+    accuracy = rf_model.score(X_test, y_test)
+    st.write(f'Accuracy on the test set: {accuracy:.2f}')
+
+    # Plot feature importance
+    feature_importance = rf_model.feature_importances_
+    sorted_idx = feature_importance.argsort()
+
+    fig, ax = plt.subplots(figsize=(15, 9))
+    ax.barh(range(X.shape[1]), feature_importance[sorted_idx])
+    ax.set_yticks(range(X.shape[1]))
+    ax.set_yticklabels(X.columns[sorted_idx])
+    ax.set_xlabel('Feature Importance')
+    ax.set_title('Random Forest Feature Importance')
+    # Show the plot using st.pyplot
+    st.pyplot(fig)
+
 
