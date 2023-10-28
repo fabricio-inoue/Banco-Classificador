@@ -142,10 +142,8 @@ elif selected_page == "Gráficos":
     with chart_container:
         st.write('#### Teremos alguns graficos para gerar insights para o nosso cliente.')
         col3, col4 = st.columns(2)
-        df['education'] = df['education'].replace(['basic.9y', 'basic.6y', 'basic.4y'], 'basic')
-        df['education_counts'] = df['education'].value_counts()
-        fig_marital = px.pie(df, names='education', title='Distribuição da educação')
-        col3.plotly_chart(fig_marital)
+        chart_data = pd.df(df('job', 'education')  width=5, height=10)
+        st.line_chart(chart_data)
         
 
 elif selected_page == "Modelo de Random Forest Treinado":
