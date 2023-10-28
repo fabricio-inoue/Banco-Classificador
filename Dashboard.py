@@ -143,7 +143,7 @@ elif selected_page == "Gráficos":
         st.write('#### Teremos alguns graficos para gerar insights para o nosso cliente.')
         col3, col4 = st.columns(2)
         chart_data = df[['education', 'job']]
-        st.line_chart(chart_data, width=500, height=300)
+        st.bar_chart(chart_data, width=500, height=300)
         
 
 elif selected_page == "Modelo de Random Forest Treinado":
