@@ -139,12 +139,6 @@ elif selected_page == "Gráficos":
         fig_marital = px.pie(df, names='education', title='Distribuição da educação')
         col3.plotly_chart(fig_marital)
         
-    with chart_container:
-        st.write('#### Teremos alguns graficos para gerar insights para o nosso cliente.')
-        col3, col4 = st.columns(2)
-        chart_data = df[['education', 'job']]
-        st.bar_chart(chart_data, width=500, height=300)
-        
 
 elif selected_page == "Modelo de Random Forest Treinado":
     # Split the data and train the model
