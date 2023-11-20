@@ -1,0 +1,38 @@
+[
+  {
+    "age": 49,
+    "job": 4,
+    "marital": 1,
+    "education": 6,
+    "default": 0,
+    "housing": 0,
+    "loan": 0,
+    "campaign": 5,
+    "pdays": 999,
+    "previous": 0,
+    "poutcome": 2,
+    "emp.var.rate": 1.4,
+    "cons.price.idx": 93.444,
+    "cons.conf.idx": -36.1,
+    "euribor3m": 4.965,
+    "nr.employed": 5228.1
+  },
+  {
+    "age": 53,
+    "job": 0,
+    "marital": 0,
+    "education": 3,
+    "default": 0,
+    "housing": 1,
+    "loan": 0,
+    "campaign": 1,
+    "pdays": 999,
+    "previous": 1,
+    "poutcome": 2,
+    "emp.var.rate": -2.9,
+    "cons.price.idx": 92.963,
+    "cons.conf.idx": -40.8,
+    "euribor3m": 1.266,
+    "nr.employed": 5076.2
+  }
+]
