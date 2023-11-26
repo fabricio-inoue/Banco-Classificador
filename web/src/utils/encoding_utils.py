@@ -82,7 +82,7 @@ category_mappings = {'decode':{
         'admin.': 0,
         'entrepreneur': 2,
         'blue-collar': 1,
-        'management': 4,
+        'man`age`ment': 4,
         'self-employed': 6,
         'retired': 5,
         'housemaid': 3,
