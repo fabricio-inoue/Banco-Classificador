@@ -2,177 +2,195 @@
 
 import streamlit as st
 
+import pickle
+
 # Função para codificar os dados categóricos
+# def encode_data(data, category_mappings):
+#     encoded_data = {}
+#     for key, value in data.items():
+#         if key in category_mappings['encode']:
+#             encoded_data[key] = category_mappings['encode'][key].get(value, None)
+#         else:
+#             encoded_data[key] = value
+#     return encoded_data
+
 def encode_data(data, category_mappings):
-    encoded_data = {}
-    for key, value in data.items():
+    encoded_data = []
+    for key in sorted(data.keys()):  # Ordenando as chaves para garantir a ordem consistente dos dados
+        value = data[key]
         if key in category_mappings['encode']:
-            encoded_data[key] = category_mappings['encode'][key].get(value, None)
+            encoded_value = category_mappings['encode'][key].get(value, None)
+            encoded_data.append(encoded_value)
         else:
-            encoded_data[key] = value
+            encoded_data.append(value)
     return encoded_data
+
+
+def load_model(model_name):
+    with open(model_name, 'rb') as file:
+        return pickle.load(file)
 
 # Mapeamentos de categorias
 category_mappings = {'decode':{
     'job': {
-        0: 'admin.',
-        2: 'entrepreneur',
-        1: 'blue-collar',
-        4: 'management',
-        6: 'self-employed',
-        5: 'retired',
-        3: 'housemaid',
-        8: 'student',
-        7: 'services',
-        9: 'technician',
-        10: 'unemployed',
-        11: None  # Represents missing data
+        0: 'administrador',
+        2: 'empreendedor',
+        1: 'trabalhador manual',
+        4: 'gerência',
+        6: 'autônomo',
+        5: 'aposentado',
+        3: 'empregada doméstica',
+        8: 'estudante',
+        7: 'serviços',
+        9: 'técnico',
+        10: 'desempregado',
+
     },
     'marital': {
-        0: 'divorced',
-        2: 'single',
-        1: 'married',
-        3: None
+        0: 'divorciado',
+        2: 'solteiro',
+        1: 'casado',
+
     },
     'education': {
-        0: 'basic.4y',
-        1: 'basic.6y',
-        2: 'basic.9y',
-        3: 'high.school',
-        4: 'illiterate',
-        5: 'professional.course',
-        6: 'university.degree',
-        7: None
+        0: 'fundamental 4 anos',
+        1: 'fundamental 6 anos',
+        2: 'fundamental 9 anos',
+        3: 'ensino médio',
+        4: 'analfabeto',
+        5: 'curso profissionalizante',
+        6: 'ensino superior',
+
     },
     'default': {
-        0: 'no',
-        1: 'yes',
-        2: None
+        0: 'não',
+        1: 'sim',
+
     },
     'housing': {
-        0: 'no',
-        1: 'yes',
-        2: None
+        0: 'não',
+        1: 'sim',
+
     },
     'loan': {
-        0: 'no',
-        1: 'yes',
-        2: None
+        0: 'não',
+        1: 'sim',
+
     },
     'contact': {
-        0: 'cellular',
-        1: 'telephone'
+        0: 'celular',
+        1: 'telefone'
     },
     'month': {
-        0: 'apr',
-        1: 'aug',
-        2: 'dec',
+        0: 'abr',
+        1: 'ago',
+        2: 'dez',
         3: 'jul',
         4: 'jun',
         5: 'mar',
-        6: 'may',
+        6: 'mai',
         7: 'nov',
-        8: 'oct',
-        9: 'sep'
+        8: 'out',
+        9: 'set'
     },
     'day_of_week': {
-        0: 'fri',
-        1: 'mon',
-        2: 'thu',
-        3: 'tue',
-        4: 'wed'
+        0: 'sex',
+        1: 'seg',
+        2: 'qui',
+        3: 'ter',
+        4: 'qua'
     },
     'poutcome': {
-        0: 'failure',
-        1: 'success',
-        2: None
+        0: 'fracasso',
+        1: 'sucesso',
+
     },
     'y': {
-        0: 'no',
-        1: 'yes'
+        0: 'não',
+        1: 'sim'
     }
 },
 'encode': {
     'job': {
-        'admin.': 0,
-        'entrepreneur': 2,
-        'blue-collar': 1,
-        'man`age`ment': 4,
-        'self-employed': 6,
-        'retired': 5,
-        'housemaid': 3,
-        'student': 8,
-        'services': 7,
-        'technician': 9,
-        'unemployed': 10,
-        None: 11
+        'administrador': 0,
+        'empreendedor': 2,
+        'trabalhador manual': 1,
+        'gerência': 4,
+        'autônomo': 6,
+        'aposentado': 5,
+        'empregada doméstica': 3,
+        'estudante': 8,
+        'serviços': 7,
+        'técnico': 9,
+        'desempregado': 10,
+
     },
     'marital': {
-        'divorced': 0,
-        'single': 2,
-        'married': 1,
-        None: 3
+        'divorciado': 0,
+        'solteiro': 2,
+        'casado': 1,
+
     },
     'education': {
-        'basic.4y': 0,
-        'basic.6y': 1,
-        'basic.9y': 2,
-        'high.school': 3,
-        'illiterate': 4,
-        'professional.course': 5,
-        'university.degree': 6,
-        None: 7
+        'fundamental 4 anos': 0,
+        'fundamental 6 anos': 1,
+        'fundamental 9 anos': 2,
+        'ensino médio': 3,
+        'analfabeto': 4,
+        'curso profissionalizante': 5,
+        'ensino superior': 6,
+
     },
     'default': {
-        'no': 0,
-        'yes': 1,
-        None: 2
+        'não': 0,
+        'sim': 1,
+
     },
     'housing': {
-        'no': 0,
-        'yes': 1,
-        None: 2
+        'não': 0,
+        'sim': 1,
+
     },
     'loan': {
-        'no': 0,
-        'yes': 1,
-        None: 2
+        'não': 0,
+        'sim': 1,
+
     },
     'contact': {
-        'cellular': 0,
-        'telephone': 1
+        'celular': 0,
+        'telefone': 1
     },
     'month': {
-        'apr': 0,
-        'aug': 1,
-        'dec': 2,
+        'abr': 0,
+        'ago': 1,
+        'dez': 2,
         'jul': 3,
         'jun': 4,
         'mar': 5,
-        'may': 6,
+        'mai': 6,
         'nov': 7,
-        'oct': 8,
-        'sep': 9
+        'out': 8,
+        'set': 9
     },
     'day_of_week': {
-        'fri': 0,
-        'mon': 1,
-        'thu': 2,
-        'tue': 3,
-        'wed': 4
+        'sex': 0,
+        'seg': 1,
+        'qui': 2,
+        'ter': 3,
+        'qua': 4
     },
     'poutcome': {
-        'failure': 0,
-        'success': 1,
-        None: 2
+        'fracasso': 0,
+        'sucesso': 1,
+
     },
     'y': {
-        'no': 0,
-        'yes': 1
+        'não': 0,
+        'sim': 1
     }
 }
-
 }
+
 
 def main():
     st.sidebar.title("Navegação")
@@ -199,31 +217,98 @@ def main():
 
     elif page == "Teste de Modelo":
         st.title("Teste de Modelo")
-        user_data = {}
-        user_data['age'] = st.number_input("Idade", min_value=0, max_value=120)
-        user_data['job'] = st.selectbox("Trabalho", list(category_mappings['decode']['job'].values()))
-        user_data['marital'] = st.selectbox("Estado Civil", list(category_mappings['decode']['marital'].values()))
-        user_data['education'] = st.selectbox("Educação", list(category_mappings['decode']['education'].values()))
-        user_data['default'] = st.selectbox("Inadimplente", list(category_mappings['decode']['default'].values()))
-        user_data['housing'] = st.selectbox("Moradia", list(category_mappings['decode']['housing'].values()))
-        user_data['loan'] = st.selectbox("Empréstimo", list(category_mappings['decode']['loan'].values()))
-        user_data['contact'] = st.selectbox("Contato", list(category_mappings['decode']['contact'].values()))
-        user_data['month'] = st.selectbox("Mês", list(category_mappings['decode']['month'].values()))
-        user_data['day_of_week'] = st.selectbox("Dia da Semana", list(category_mappings['decode']['day_of_week'].values()))
-        user_data['duration'] = st.number_input("Duração", min_value=0)
-        user_data['campaign'] = st.number_input("Campanha", min_value=0)
-        user_data['pdays'] = st.number_input("Pdias", min_value=0)
-        user_data['previous'] = st.number_input("Anterior", min_value=0)
-        user_data['poutcome'] = st.selectbox("Resultado da Campanha Anterior", list(category_mappings['decode']['poutcome'].values()))
-        user_data['emp.var.rate'] = st.number_input("Taxa de Variação de Emprego", step=0.1)
-        user_data['cons.price.idx'] = st.number_input("Índice de Preços ao Consumidor", step=0.1)
-        user_data['cons.conf.idx'] = st.number_input("Índice de Confiança do Consumidor", step=0.1)
-        user_data['euribor3m'] = st.number_input("Euribor 3 Meses", step=0.1)
-        user_data['nr.employed'] = st.number_input("Número de Empregados", step=0.1)
+        
+        models = {
+            "Gaussian Naive Bayes": "GaussianNB_model.pkl",
+            "K-Nearest Neighbors (KNN)": "KNN_model.pkl",
+            "Logistic Regression": "LogisticRegression_model.pkl",
+            "Random Forest": "RandomForest_model.pkl",
+            "Support Vector Machine (SVM)": "SVM_model.pkl",
+            "XGBoost": "XGBoost_model.pkl"
+        }
 
-        if st.button("Codificar e Mostrar Dados"):
-            encoded_data = encode_data(user_data, category_mappings)
-            st.write(encoded_data)
+        selected_model_name = st.selectbox("Escolha um modelo de ML", list(models.keys()))
+
+
+        # Descrição e intervalos para cada entrada em português
+        user_data = {}
+        user_data['age'] = st.number_input("Idade", min_value=18, max_value=100, help="Digite sua idade (18-100 anos).")
+
+        job_options = list(category_mappings['decode']['job'].values())
+        user_data['job'] = st.selectbox("Profissão", options=job_options, help="Selecione sua profissão da lista.")
+
+        marital_options = list(category_mappings['decode']['marital'].values())
+        user_data['marital'] = st.selectbox("Estado Civil", options=marital_options, help="Selecione seu estado civil.")
+
+        education_options = list(category_mappings['decode']['education'].values())
+        user_data['education'] = st.selectbox("Educação", options=education_options, help="Selecione seu nível de educação.")
+
+        default_options = list(category_mappings['decode']['default'].values())
+        user_data['default'] = st.selectbox("Inadimplência", options=default_options, help="Você possui inadimplência? (sim/não)")
+
+        housing_options = list(category_mappings['decode']['housing'].values())
+        user_data['housing'] = st.selectbox("Moradia", options=housing_options, help="Você possui moradia própria? (sim/não)")
+
+        loan_options = list(category_mappings['decode']['loan'].values())
+        user_data['loan'] = st.selectbox("Empréstimos", options=loan_options, help="Você possui empréstimos pessoais? (sim/não)")
+
+        contact_options = list(category_mappings['decode']['contact'].values())
+        user_data['contact'] = st.selectbox("Tipo de Contato", options=contact_options, help="Qual o tipo de contato preferencial? (celular/telefone)")
+
+        month_options = list(category_mappings['decode']['month'].values())
+        user_data['month'] = st.selectbox("Mês", options=month_options, help="Selecione o mês atual.")
+
+        day_of_week_options = list(category_mappings['decode']['day_of_week'].values())
+        user_data['day_of_week'] = st.selectbox("Dia da Semana", options=day_of_week_options, help="Selecione o dia da semana.")
+
+        user_data['duration'] = st.number_input("Duração do Último Contato (em segundos)", min_value=0, help="Digite a duração, em segundos, do último contato.")
+
+        user_data['campaign'] = st.number_input("Número de Contatos Nesta Campanha", min_value=0, help="Digite o número de contatos realizados nesta campanha.")
+
+        user_data['pdays'] = st.number_input("Dias Após Último Contato da Campanha Anterior", min_value=0, help="Digite o número de dias desde o último contato da campanha anterior.")
+
+        user_data['previous'] = st.number_input("Contatos Antes Desta Campanha", min_value=0, help="Digite o número de contatos realizados antes desta campanha.")
+
+        poutcome_options = list(category_mappings['decode']['poutcome'].values())
+        user_data['poutcome'] = st.selectbox("Resultado da Campanha Anterior", options=poutcome_options, help="Selecione o resultado da campanha anterior.")
+
+        user_data['emp.var.rate'] = st.number_input("Taxa de Variação do Emprego", step=0.1, help="Digite a taxa de variação do emprego.")
+
+        user_data['cons.price.idx'] = st.number_input("Índice de Preços ao Consumidor", step=0.1, help="Digite o índice de preços ao consumidor.")
+
+        user_data['cons.conf.idx'] = st.number_input("Índice de Confiança do Consumidor", step=0.1, help="Digite o índice de confiança do consumidor.")
+
+        user_data['euribor3m'] = st.number_input("Taxa Euribor de 3 Meses", step=0.1, help="Digite a taxa Euribor de 3 meses.")
+
+        user_data['nr.employed'] = st.number_input("Número de Empregados", step=1.0, help="Digite o número de empregados.")
+
+        # # Botão para codificar e mostrar dados
+        # if st.button("Codificar e Mostrar Dados"):
+        #     try:
+        #         encoded_data = encode_data(user_data, category_mappings)
+        #         st.write(encoded_data)
+        #     except Exception as e:
+        #         st.error(f"Ocorreu um erro ao processar os dados: {e}")
+
+            
+        if st.button("Prever"):
+            try:
+                encoded_data = encode_data(user_data, category_mappings)
+                model = load_model(models[selected_model_name])
+                prediction = model.predict([encoded_data])
+
+                if prediction[0] == 0:
+                    st.success("Previsão: Não")
+
+                elif prediction[0] == 1:
+                    st.success("Previsão: Sim")
+
+                else:
+                    st.error("Ocorreu um erro ao realizar a previsão.")
+            except Exception as e:
+                st.error(f"Ocorreu um erro: {e}")
+
+
 
 if __name__ == "__main__":
     main()
